@@ -1,0 +1,16 @@
+services:
+  proxy:
+    image: traefik:1.3.6-alpine
+    volumes:
+      - ./traefik/traefik.toml:/traefik.toml
+    command: "--file"
+    ports:
+      - 8080:8080
+
+    back:
+      image: pablogmarrero/timeline-back
+      environment:
+        - MONGO_URL= mongodb://timeline-ps:timeline-ps1@ds263670.mlab.com:63670/timeline-ps
+        
+    front:
+      image: pablogmarrero/timeline-front
